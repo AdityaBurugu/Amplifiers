@@ -52,14 +52,18 @@ def CC_Amplifier(VCC,Vce,Ic,B):
     R2 = int(input(f'''Select R2 Value less than {format_value(R2_max)}Ω:'''))
     if R2>0 and R2<=R2_max:
         R1 = ratio*R2
+        Rin = (R1 * R2) / (R1 + R2)
         Re = format_value(Re)
         R1 = format_value(R1)
         R2 = format_value(R2)
+        Rin = format_value(Rin)
 
-        return Re,R1,R2
+        return Rin,Re,R1,R2
     else:
         return None,None,None,None
 
+def CE_RC_Coupled_Amplifier():
+    pass
 def CE():
     Vcc = float(input("Enter Vcc Value:"))
     Vce = float(input("Enter VceQ Value:"))
@@ -83,7 +87,8 @@ def CC():
         exit(0)
     IcQ = float(input("Enter IcQ Value:"))
     B = int(input("Enter Beta Value:"))
-    Re, R1, R2 = CC_Amplifier(Vcc, Vce, IcQ, B)
+    Rin,Re, R1, R2 = CC_Amplifier(Vcc, Vce, IcQ, B)
+    print("Impedence Matching Resistance:", Rin, "ohm")
     print("Emitter Resistance:", Re, "ohm")
     print("Biasing Resistance1:", R1, "ohm")
     print("Biasing Resistance2:", R2, "ohm")
